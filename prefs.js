@@ -32,7 +32,7 @@ const getSchema = function () {
     return new Gio.Settings({ settings_schema: schema });
 };
 
-const SettingsSchema = getSchema();
+var SettingsSchema = getSchema();
 
 
 function init() {
@@ -43,6 +43,7 @@ function init() {
 
 const App = new Lang.Class({
     Name: 'ClipboardIndicator.App',
+
     _init: function() {
       this.main = new Gtk.Grid({
             margin: 10,
@@ -93,8 +94,14 @@ const App = new Lang.Class({
         this.field_display_mode.pack_start (rendererText, false);
         this.field_display_mode.add_attribute (rendererText, "text", 0);
 
-        this.field_cache_disable = new Gtk.Switch();
-        this.field_notification_toggle = new Gtk.Switch();
+        this.field_cache_disable = new Gtk.Switch({
+            halign: Gtk.Align.START,
+            expand: false
+        });
+        this.field_notification_toggle = new Gtk.Switch({
+            halign: Gtk.Align.START,
+            expand: false
+        });
         this.field_keybinding = createKeybindingWidget(SettingsSchema);
         addKeybinding(this.field_keybinding.model, SettingsSchema, "toggle-menu",
                       _("Toggle the menu"));
@@ -106,7 +113,10 @@ const App = new Lang.Class({
                       _("Next entry"));
 
         var that = this;
-        this.field_keybinding_activation = new Gtk.Switch();
+        this.field_keybinding_activation = new Gtk.Switch({
+            halign: Gtk.Align.START,
+            expand: false
+        });
         this.field_keybinding_activation.connect("notify::active", function(widget){
             that.field_keybinding.set_sensitive(widget.active);
         });
@@ -201,6 +211,7 @@ const App = new Lang.Class({
 
         this.main.show_all();
     },
+
     _create_display_mode_options : function(){
         let options = [{ name: _("Icon") },
         { name: _("Clipboard Content"),},

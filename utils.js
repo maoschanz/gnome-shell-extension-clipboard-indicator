@@ -58,9 +58,8 @@ function writeRegistry (registry) {
 
         let stream = obj.replace_finish(res);
 
-        stream.write_bytes_async(contents, GLib.PRIORITY_DEFAULT,
-                            null, function (w_obj, w_res) {
-
+        stream.write_bytes_async(contents, GLib.PRIORITY_DEFAULT, null,
+                                 function (w_obj, w_res) {
             w_obj.write_bytes_finish(w_res);
             stream.close(null);
         });
@@ -109,20 +108,17 @@ function readRegistry (callback) {
                             registryNoFavorite = registry.filter(
                                 item => item["favorite"] === false);
                         }
-                    }
-                    catch (e) {
+                    } catch (e) {
                         registry = [];
                     }
-                }
-                else {
+                } else {
                     registry = [];
                 }
 
                 callback(registry);
             });
         });
-    }
-    else {
+    } else {
         callback([]);
     }
 }
