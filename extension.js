@@ -317,7 +317,7 @@ var ClipboardIndicator = class ClipboardIndicator {
         // has data that will be re-captured on next refresh, so we remove
         // all except the currently selected item
         // Don't remove favorites here
-        that.historySection.getMenuItems().forEach(function (mItem) {
+        that.historySection._getMenuItems().forEach(function (mItem) {
             if (!mItem.currentlySelected) {
                 let idx = that.clipItemsRadioGroup.indexOf(mItem);
                 mItem.destroy();
@@ -461,7 +461,7 @@ var ClipboardIndicator = class ClipboardIndicator {
     }
 
     getAllIMenuItems (text) {
-        return this.historySection.getMenuItems().concat(this.favoritesSection.getMenuItems());
+        return this.historySection._getMenuItems().concat(this.favoritesSection._getMenuItems());
     }
 
     setupTimeout (reiterate) {
